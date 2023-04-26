@@ -26,8 +26,9 @@ int main(int argc, char* argv[]) {
         cout << "Introduce una palabra: ";
         cin >> input_str;
         MPI_Bcast(&input_str, input_str.length() + 1, MPI_CHAR, 0, MPI_COMM_WORLD);
-        local_result = is_Palindrome(input_str.substr(id * input_str.length() / size, input_str.length() / size));
+        
     }
+    local_result = is_Palindrome(input_str);
     
     MPI_Reduce(&local_result, &global_result, 1, MPI_C_BOOL, MPI_LAND, 0, MPI_COMM_WORLD);
     if (id == 0) {
